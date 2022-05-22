@@ -8,6 +8,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [newMovie, setNewMovie] = useState(false);
 
   const fetchMoviesHandler = useCallback(async () => {
     setIsLoading(true);
@@ -42,9 +43,10 @@ function App() {
 
   useEffect(() => {
     fetchMoviesHandler();
-  }, [fetchMoviesHandler]);
+  }, [fetchMoviesHandler, newMovie]);
 
   async function addMovieHandler(movie) {
+    setNewMovie(!newMovie);
     const res = await fetch(
       "https://react-abfeb-default-rtdb.firebaseio.com/movies.json",
       {
